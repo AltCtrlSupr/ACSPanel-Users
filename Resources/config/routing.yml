@@ -1,0 +1,4 @@
+ACSACSPanelBundle_users:
+    resource: "@ACSACSPanelUsersBundle/Controller"
+    prefix:   /users
+    type: annotation
