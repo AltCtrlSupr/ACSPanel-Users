@@ -1,4 +1,3 @@
-ACSACSPanelBundle_users:
-    resource: "@ACSACSPanelUsersBundle/Controller"
-    prefix:   /users
-    type: annotation
+ACSACSPanelUsersBundle_users:
+   resource: "@ACSACSPanelUsersBundle/Resources/config/routing/users.yml"
+   prefix:   /users
