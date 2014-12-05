@@ -1,0 +1,5 @@
+## YAML Template.
+---
+users:
+    pattern:  /
+    defaults: { _controller: "ACSACSPanelUsersBundle:User:index" }
