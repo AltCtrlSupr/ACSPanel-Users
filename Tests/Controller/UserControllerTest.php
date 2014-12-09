@@ -14,7 +14,7 @@ class UserControllerTest extends CommonTestCase
 
         $crawler = $client->request('GET', '/users');
 
-	ldd($crawler->html());
+        $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
 
     }
 

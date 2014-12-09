@@ -1,2 +1,11 @@
 ## YAML Template.
 ---
+services:
+    # Menu items added with event listener
+    users_menu_subscriber:
+        class: ACS\ACSPanelUsersBundle\Event\Subscribers\MenuSubscriber
+        arguments: ['@event_dispatcher']
+        tags:
+            - {name: kernel.event_subscriber}
+
+
