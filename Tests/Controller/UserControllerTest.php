@@ -1,5 +1,4 @@
 <?php
-
 namespace ACS\ACSPanelUsersBundle\Tests\Controller;
 
 use ACS\ACSPanelUsersBundle\Controller\UserController as Con;
