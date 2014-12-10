@@ -21,7 +21,6 @@ class MenuSubscriber implements EventSubscriberInterface
     public function resellerItems(FilterMenuEvent $menu_filter)
     {
         $menu = $menu_filter->getMenu();
-	ldd($menu);
         $menu['menu.reseller.main']->addChild('menu.reseller.users', array( 'route' => 'users'));
     }
 

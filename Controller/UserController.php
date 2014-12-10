@@ -72,7 +72,7 @@ class UserController extends Controller
     /**
      * Displays a form to create a new FosUser entity.
      *
-     * @Route("/", name="users_new")
+     * @Route("/new/", name="users_new")
      */
     public function newAction()
     {
@@ -87,6 +87,94 @@ class UserController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
+    }
+
+    /**
+     * Displays show FosUser entity.
+     *
+     * @Route("/show/{id}", name="users_show")
+     */
+
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+
+        if (!$entity->userCanSee($this->get('security.context'))) {
+            throw new \Exception('You cannot edit this entity!');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('ACSACSPanelBundle:FosUser:show.html.twig', array(
+            'search_action' => 'user_search',
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),        ));
+
+    }
+
+    /**
+     * Switch the session to other user to admin purposes
+     * @Route("/switch/{id}", name="users_switch")
+     */
+    public function switchAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $curr_user = $this->get('security.context')->getToken()->getUser();
+        $user = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+
+        if (true === $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || $curr_user == $user->getParentUser()) {
+
+            $loginmanager = $this->get('fos_user.security.login_manager');
+            $loginmanager->loginUser('main', $user, new Response());
+
+            //$this->get('session')->set('is_superior_user','true');
+
+            return $this->redirect($this->generateUrl('acs_acspanel_homepage'));
+        }else{
+            throw $this->createNotFoundException('You cannot do this');
+        }
+
+    }
+
+    /**
+     * Users edit
+     * @Route("/edit/{id}", name="users_edit")
+     */
+    public function editAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find FosUser entity.');
+        }
+
+        $editForm = $this->createForm(new FosUserType(), $entity, array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('ACSACSPanelBundle:FosUser:edit.html.twig', array(
+            'search_action' => 'user_search',
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+
+
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
     }
 
 
