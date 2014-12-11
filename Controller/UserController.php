@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use ACS\ACSPanelUsersBundle\Form\FosUserType;
+
+use Symfony\Component\HttpFoundation\Response;
+
 class UserController extends Controller
 {
     /**
@@ -167,6 +171,35 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * Deletes a FosUser entity.
+     *
+     * @Route("/delete/{id}", name="users_delete")
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $form = $this->createDeleteForm($id);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find FosUser entity.');
+            }
+
+            $userplans = $em->getRepository('ACSACSPanelBundle:UserPlan')->findByPuser($entity);
+            foreach ($userplans as $uplan) {
+                 $em->remove($uplan);
+            }
+
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('users'));
+    }
 
 
     private function createDeleteForm($id)

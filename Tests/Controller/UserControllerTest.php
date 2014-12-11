@@ -9,8 +9,7 @@ class UserControllerTest extends CommonTestCase
 {
     public function testIndex()
     {
-        $this->client = $this->createAuthorizedClient('superadmin','1234');
-	$client = $this->client;
+	$client = $this->createSuperadminClient();
 
         $crawler = $client->request('GET', '/users');
 
@@ -23,8 +22,7 @@ class UserControllerTest extends CommonTestCase
 
     public function testSwitchUser()
     {
-        $this->client = $this->createAuthorizedClient('superadmin','1234');
-	$client = $this->client;
+	$client = $this->createSuperadminClient();
 
         $crawler = $client->request('GET', '/users/switch/1');
         $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
@@ -32,11 +30,9 @@ class UserControllerTest extends CommonTestCase
 
     public function testUserEdit()
     {
-        $this->client = $this->createAuthorizedClient('superadmin','1234');
-	$client = $this->client;
+	$client = $this->createSuperadminClient();
 
-        $crawler = $client->request('GET', '/users/switch/1');
+        $crawler = $client->request('GET', '/users/edit/1');
         $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
     }
-
 }
