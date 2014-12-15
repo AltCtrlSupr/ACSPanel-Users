@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use ACS\ACSPanelBundle\Form\EventListener\UserFormFieldSuscriber;
+use ACS\ACSPanelBundle\Form\UserPlanType;
 
 class FosUserType extends AbstractType
 {
