@@ -21,13 +21,13 @@ class MenuSubscriber implements EventSubscriberInterface
     public function resellerItems(FilterMenuEvent $menu_filter)
     {
         $menu = $menu_filter->getMenu();
-        $menu['menu.reseller.main']->addChild('menu.reseller.users', array( 'route' => 'users'));
+        $menu['menu.reseller.main']->addChild('menu.reseller.users', array( 'route' => 'users', 'extras' => array('icon' => 'fa-users')));
     }
 
     public function adminItems(FilterMenuEvent $menu_filter)
     {
         $menu = $menu_filter->getMenu();
-        $menu['menu.admin.main']->addChild('menu.admin.users', array( 'route' => 'users'));
+        $menu['menu.admin.main']->addChild('menu.admin.users', array( 'route' => 'users', 'extras' => array('icon' => 'fa-users')));
     }
 
 }
