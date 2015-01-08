@@ -8,7 +8,7 @@
     "require": {
         "php": ">=5.3.3",
         "friendsofsymfony/user-bundle": "*",
-	"gos/acl-manger-bundle": "*"
+	"gos/acl-manger-bundle": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
