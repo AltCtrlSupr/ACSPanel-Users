@@ -8,6 +8,8 @@
     "require": {
         "php": ">=5.3.3",
         "friendsofsymfony/user-bundle": "*",
+	"doctrine/migrations": "1.0.*@dev",
+	"doctrine/doctrine-migrations-bundle": "2.1.*@dev",
 	"gos/acl-manager-bundle": "dev-master"
     },
     "require-dev": {
