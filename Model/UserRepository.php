@@ -7,7 +7,7 @@ namespace ACS\ACSPanelUsersBundle\Model;
 
 use Doctrine\ORM\EntityRepository;
 
-class User extends EntityRepository
+class UserRepository extends EntityRepository
 {
     public function qbSuperadminUsers()
     {
