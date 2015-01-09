@@ -1,5 +1,6 @@
 ACS\ACSPanelUsersBundle\Entity\FosUser:
     type: entity
+    repositoryClass: ACS\ACSPanelUsersBundle\Model\UserRepository
     table: fos_user
     fields:
         id:
