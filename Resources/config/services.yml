@@ -1,5 +1,8 @@
 ## YAML Template.
 ---
+parameters:
+    users_entity_subscriber.class: ACS\ACSPanelUsersBundle\Event\Subscribers\EntitySubscriber
+
 services:
     # Menu items added with event listener
     users_menu_subscriber:
@@ -8,4 +11,14 @@ services:
         tags:
             - {name: kernel.event_subscriber}
 
+    # Entity subscribers
+    entity_subscriber:
+        class: %users_entity_subscriber.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: preRemove }
 

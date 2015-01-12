@@ -13,9 +13,9 @@ class UserRepository extends EntityRepository
     {
         return $this->createQueryBuilder('u')
             ->select('u')
-            ->from('ACS\ACSPanelUsersBundle\Entity\FosUser u')
-            ->innerJoin('u.group','g')
-            ->where('g.roles LIKE :roles')
+            ->from('ACS\ACSPanelUsersBundle\Entity\FosUser','usr')
+            ->innerJoin('u.groups','g')
+            ->where('g.roles LIKE :roles OR u.roles LIKE :roles')
             ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
     }
 
