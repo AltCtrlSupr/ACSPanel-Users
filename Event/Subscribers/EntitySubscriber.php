@@ -86,6 +86,17 @@ class EntitySubscriber implements EventSubscriber
         return $user;
     }
 
+    public function setUserValue($entity)
+    {
+        if($entity->getUser())
+            return;
+        $service = $this->container->get('security.context');
+        if(!$service->getToken())
+            return;
+        $user = $service->getToken()->getUser();
+        return $entity->setUser($user);
+    }
+
     public function setFosUserUserValue($entity)
     {
         if($entity->getParentUser())
