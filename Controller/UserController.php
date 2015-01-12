@@ -20,12 +20,12 @@ class UserController extends Controller
     {
 	     $em = $this->getDoctrine()->getManager();
 	     if (true === $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
-		     $entities = $em->getRepository('ACSACSPanelBundle:FosUser')->findAll();
+		     $entities = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->findAll();
 	     }elseif(true === $this->get('security.context')->isGranted('ROLE_ADMIN')){
-		     $entities = $em->getRepository('ACSACSPanelBundle:FosUser')->findBy(array('parent_user' => $this->get('security.context')->getToken()->getUser()->getIdChildIds()));
+		     $entities = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->findBy(array('parent_user' => $this->get('security.context')->getToken()->getUser()->getIdChildIds()));
 	     }else{
 		     $user = $this->get('security.context')->getToken()->getUser();
-		     $entities = $em->getRepository('ACSACSPanelBundle:FosUser')->findBy(array('parent_user' => $user->getId()));
+		     $entities = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->findBy(array('parent_user' => $user->getId()));
 	     }
 
 	     return array(
@@ -42,7 +42,7 @@ class UserController extends Controller
     public function searchAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $rep = $em->getRepository('ACSACSPanelBundle:FosUser');
+        $rep = $em->getRepository('ACSACSPanelUsersBundle:FosUser');
 
         $term = $request->request->get('term');
 
@@ -81,7 +81,7 @@ class UserController extends Controller
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
 
-        return $this->render('ACSACSPanelUserBundle:FosUser:new.html.twig', array(
+        return $this->render('ACSACSPanelUsersBundle:User:new.html.twig', array(
             'search_action' => 'user_search',
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -98,7 +98,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+        $entity = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
 
         if (!$entity->userCanSee($this->get('security.context'))) {
             throw new \Exception('You cannot edit this entity!');
@@ -106,7 +106,7 @@ class UserController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('ACSACSPanelBundle:FosUser:show.html.twig', array(
+        return $this->render('ACSACSPanelUsersBundle:User:show.html.twig', array(
             'search_action' => 'user_search',
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
@@ -122,7 +122,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $curr_user = $this->get('security.context')->getToken()->getUser();
-        $user = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+        $user = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
 
         if (true === $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || $curr_user == $user->getParentUser()) {
 
@@ -146,7 +146,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+        $entity = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find FosUser entity.');
@@ -158,7 +158,7 @@ class UserController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('ACSACSPanelBundle:FosUser:edit.html.twig', array(
+        return $this->render('ACSACSPanelUsersBundle:User:edit.html.twig', array(
             'search_action' => 'user_search',
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -178,7 +178,7 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+            $entity = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find FosUser entity.');
@@ -205,7 +205,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ACSACSPanelBundle:FosUser')->find($id);
+        $entity = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find FosUser entity.');
@@ -253,7 +253,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('users_edit', array('id' => $id)));
         }
 
-        return $this->render('ACSACSPanelBundle:FosUser:edit.html.twig', array(
+        return $this->render('ACSACSPanelUsersBundle:User:edit.html.twig', array(
             'search_action' => 'user_search',
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
