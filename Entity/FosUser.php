@@ -737,6 +737,9 @@ class FosUser extends BaseUser  /* implements ThemeMenuItem */
         return $this->password_changed_at;
     }
 
+    /**
+     * @deprecated: Use ACL instead
+     */
     public function userCanSee($security)
     {
         if($security->isGranted('ROLE_SUPER_ADMIN'))
