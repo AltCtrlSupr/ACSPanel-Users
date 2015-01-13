@@ -12,4 +12,9 @@ class AclEntityRepository extends EntityRepository
     {
         $this->acl_filter = $acl_filter;
     }
+
+	public function getAclFilter()
+	{
+        return $this->acl_filter;
+	}
 }
