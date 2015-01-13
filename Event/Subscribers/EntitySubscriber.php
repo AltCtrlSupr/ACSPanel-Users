@@ -56,6 +56,9 @@ class EntitySubscriber implements EventSubscriber
 
     public function postPersist(LifecycleEventArgs $args)
     {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+
         if ($entity instanceof FosUser){
             $this->incrementUidSetting($entity);
             $this->incrementGidSetting($entity);
