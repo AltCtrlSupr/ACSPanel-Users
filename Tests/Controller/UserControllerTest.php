@@ -28,6 +28,14 @@ class UserControllerTest extends CommonTestCase
         $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
     }
 
+	public function testNewUser()
+	{
+        $client = $this->createSuperadminClient();
+
+        $crawler = $client->request('GET', '/users/new');
+        $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
+	}
+
     public function testUserEdit()
     {
         $client = $this->createSuperadminClient();
