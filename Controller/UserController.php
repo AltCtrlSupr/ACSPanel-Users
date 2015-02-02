@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use ACS\ACSPanelUsersBundle\Form\FosUserType;
+use ACS\ACSPanelUsersBundle\Entity\FosUser;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -82,6 +83,63 @@ class UserController extends Controller
         ));
 
         return $this->render('ACSACSPanelUsersBundle:User:new.html.twig', array(
+            'search_action' => 'user_search',
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    /**
+     * Creates new user
+     *
+     * @Route("/create/", name="users_create")
+     */
+    public function createAction(Request $request)
+    {
+        $entity  = new FosUser();
+        $form = $this->createForm(new FosUserType(), $entity, array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            // Persisting plans
+            // @todo: Do this with events
+            $postData = $request->request->get('acs_acspanelbundle_fosusertype');
+            if(isset($postData['puser'])){
+                $plans = $postData['puser'];
+
+                foreach ($plans as $plan) {
+                    $assignplan = $em->getRepository('ACSACSPanelBundle:Plan')->find($plan['uplans']);
+                    if($assignplan){
+                        $new_plan = new UserPlan();
+                        $new_plan->setPuser($entity);
+                        $new_plan->setUplans($assignplan);
+                        $em->persist($new_plan);
+                    }
+                }
+
+            }
+
+            // Password encode setting
+            $userManager = $this->container->get('fos_user.user_manager');
+            $entity->setPlainPassword($entity->getPassword());
+            $userManager->updatePassword($entity);
+            $userManager->updateUser($entity);
+
+            $em->persist($entity);
+            $em->flush();
+
+            $dispatcher = new EventDispatcher();
+
+            $dispatcher->dispatch(UserEvents::USER_REGISTER, new FilterUserEvent($entity));
+
+            return $this->redirect($this->generateUrl('users_edit', array('id' => $entity->getId())));
+        }
+
+        return $this->render('ACSACSPanelBundle:FosUser:new.html.twig', array(
             'search_action' => 'user_search',
             'entity' => $entity,
             'form'   => $form->createView(),
