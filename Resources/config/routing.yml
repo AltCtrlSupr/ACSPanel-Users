@@ -21,6 +21,10 @@ liip_theme:
     resource: "@LiipThemeBundle/Resources/config/routing.xml"
     prefix: /theme
 
+avanzu_admin_profile:
+    path: /profile/
+avanzu_admin_logout:
+    path: /logout
 
 ACSACSPanelUsersBundle_users:
    resource: "@ACSACSPanelUsersBundle/Controller/"

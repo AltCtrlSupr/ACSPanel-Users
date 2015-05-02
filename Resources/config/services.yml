@@ -38,5 +38,7 @@ services:
     # Avanzu admin specific settings
     acspanel.show_user_listener:
         class: %acspanel.show_user_listener.class%
+        calls:
+            - [setSecurity, ['@security.context']]
         tags:
             - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }

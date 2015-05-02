@@ -7,6 +7,8 @@ use ACS\ACSPanelUsersBundle\Entity\FosUser;
 
 class AcsShowUserEvent
 {
+    private $security;
+
     public function onShowUser(ShowUserEvent $event)
     {
         $user = $this->getUser();
@@ -15,5 +17,12 @@ class AcsShowUserEvent
 
     protected function getUser()
     {
+        return $this->security->getToken()->getUser();
     }
+
+    public function setSecurity($security)
+    {
+        $this->security = $security;
+    }
+
 }
