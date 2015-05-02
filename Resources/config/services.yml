@@ -3,6 +3,7 @@
 parameters:
     users_entity_subscriber.class: ACS\ACSPanelUsersBundle\Event\Subscribers\EntitySubscriber
     acl_logic_subscriber.class: ACS\ACSPanelUsersBundle\Event\Subscribers\AclLogicSubscriber
+    acspanel.show_user_listener.class: ACS\ACSPanelUsersBundle\Event\AcsShowUserListener
 
 services:
     # Menu items added with event listener
@@ -34,3 +35,8 @@ services:
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: preRemove }
 
+    # Avanzu admin specific settings
+    acspanel.show_user_listener:
+        class: %acspanel.show_user_listener.class%
+        tags:
+            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }

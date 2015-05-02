@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\GroupInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Avanzu\AdminThemeBundle\Model\MenuItemInterface as ThemeMenuItem;
+use Avanzu\AdminThemeBundle\Model\UserInterface as ThemeUser;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class FosUser extends BaseUser  /* implements ThemeMenuItem */
+class FosUser extends BaseUser implements ThemeUser
 {
     /**
      * @ORM\Id
@@ -175,7 +175,7 @@ class FosUser extends BaseUser  /* implements ThemeMenuItem */
     public function addPlan(\ACS\ACSPanelBundle\Entity\Plan $plans)
     {
 
-        $user_plan = new UserPlan();
+        $user_plan = new \ACS\ACSPanelBundle\Entity\UserPlan();
         $user_plan->setUplans($plans);
         $user_plan->setPuser($this);
         $this->addPuser($user_plan);
@@ -260,22 +260,6 @@ class FosUser extends BaseUser  /* implements ThemeMenuItem */
         $used_amount += count($resources);
 
         return $used_amount;
-    }
-
-    /**
-     * Check if user can use specified resource
-     *
-     */
-    public function canUseResource($resource, $em)
-    {
-        if ($this->getPlanMax($resource) == -1)
-            return false;
-
-        if ($this->getPlanMax($resource) > $this->getUsedResource($resource, $em)) {
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -763,6 +747,52 @@ class FosUser extends BaseUser  /* implements ThemeMenuItem */
 
         return false;
 
+    }
+
+    /**
+     * Check if user can use specified resource
+     *
+     */
+    public function canUseResource($resource, $em)
+    {
+        if ($this->getPlanMax($resource) == -1)
+            return false;
+
+        if ($this->getPlanMax($resource) > $this->getUsedResource($resource, $em)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public function getAvatar()
+    {
+    }
+
+    public function getName()
+    {
+        return $this->__toString();
+    }
+
+    public function getMemberSince()
+    {
+        return $this->getCreatedAt();
+    }
+
+    public function getIdentifier()
+    {
+        return $this->id;
+    }
+
+    public function getTitle()
+    {
+        return $this->__toString();
+    }
+
+    public function isOnline()
+    {
+        return true;
     }
 
 }

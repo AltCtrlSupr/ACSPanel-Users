@@ -16,7 +16,8 @@ class UserRepository extends EntityRepository
             ->from('ACS\ACSPanelUsersBundle\Entity\FosUser','usr')
             ->innerJoin('u.groups','g')
             ->where('g.roles LIKE :roles OR u.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
+            ->setParameter('roles', '%ROLE_SUPER_ADMIN%')
+        ;
     }
 
     public function getSuperadminUsers()
