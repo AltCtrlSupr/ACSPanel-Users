@@ -777,7 +777,7 @@ class FosUser extends BaseUser implements ThemeUser
 
     public function getMemberSince()
     {
-        return $this->getCreatedAt();
+        return '';
     }
 
     public function getIdentifier()
