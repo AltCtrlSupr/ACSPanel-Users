@@ -25,6 +25,7 @@ class FosUser extends BaseUser implements ThemeUser
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $groups;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -104,12 +105,6 @@ class FosUser extends BaseUser implements ThemeUser
      * @var \DateTime
      */
     private $password_changed_at;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-    }
 
     /**
      * Get id
@@ -764,7 +759,6 @@ class FosUser extends BaseUser implements ThemeUser
 
         return false;
     }
-
 
     public function getAvatar()
     {

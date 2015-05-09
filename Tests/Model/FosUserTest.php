@@ -6,10 +6,6 @@ use ACS\ACSPanelUsersBundle\Entity\FosUser;
 
 class FosUserTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetUsedHttpdAlias()
-    {
-    }
-
     public function testGetHomeDir()
     {
         $test_user = new FosUser();
@@ -19,6 +15,5 @@ class FosUserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($home_dir, $test_user->getUsername());
     }
-
 }
-?>
+
