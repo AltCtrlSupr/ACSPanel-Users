@@ -6,22 +6,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use ACS\ACSPanelBundle\Form\EventListener\UserFormFieldSuscriber;
 use ACS\ACSPanelBundle\Form\UserPlanType;
+use ACS\ACSPanelBundle\Form\EventListener\UserFormFieldSuscriber;
 
 class FosUserType extends AbstractType
 {
-    private $container;
+    private $_security;
 
-    public function __construct($container)
+    public function __construct($security)
     {
-        $this->container = $container;
+        $this->_security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $service = $this->container->get('security.context');
-
         $user = $builder->getData();
 
         $builder
@@ -31,11 +29,11 @@ class FosUserType extends AbstractType
             ->add('first_name', null, array('label' => 'user.form.first_name'))
             ->add('last_name', null, array('label' => 'user.form.last_name'));
 
-        if($service->isGranted('ROLE_SUPER_ADMIN')){
+        if($this->_security->isGranted('ROLE_SUPER_ADMIN')){
            $builder->add('parent_user', null, array('label' => 'user.form.parent_user'));
         }
 
-        if($service->isGranted('ROLE_ADMIN')){
+        if($this->_security->isGranted('ROLE_ADMIN')){
            $builder->add('uid', null, array('label' => 'user.form.uid'));
            $builder->add('gid', null, array('label' => 'user.form.gid'));
         }
@@ -47,7 +45,7 @@ class FosUserType extends AbstractType
         $builder
             ->add('groups', null, array('label' => 'user.form.groups'))
             ->add('puser', 'collection', array(
-                'type' => new UserPlanType($user,$options['em']),
+                'type' => new UserPlanType($user, $options['em']),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
