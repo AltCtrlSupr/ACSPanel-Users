@@ -5,6 +5,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\GroupInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use ACS\ACSPanelBundle\Model\Entity\AclEntity;
 
 use Avanzu\AdminThemeBundle\Model\UserInterface as ThemeUser;
 
@@ -12,7 +13,7 @@ use Avanzu\AdminThemeBundle\Model\UserInterface as ThemeUser;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class FosUser extends BaseUser implements ThemeUser
+class FosUser extends BaseUser implements ThemeUser, AclEntity
 {
     /**
      * @ORM\Id
@@ -789,4 +790,9 @@ class FosUser extends BaseUser implements ThemeUser
         return true;
     }
 
+
+    public function getOwners()
+    {
+    return $this->getParentUser();
+    }
 }
