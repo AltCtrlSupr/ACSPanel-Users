@@ -10,6 +10,8 @@ use ACS\ACSPanelUsersBundle\Form\FosUserType;
 use ACS\ACSPanelUsersBundle\Entity\FosUser;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class UserController extends Controller
 {
@@ -78,7 +80,7 @@ class UserController extends Controller
     {
         $entity = new FosUser();
 
-        $form = $this->createForm(new FosUserType($this->container), $entity, array(
+        $form = $this->createForm(new FosUserType($this->get('security.context')), $entity, array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
 
@@ -97,7 +99,7 @@ class UserController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new FosUser();
-        $form = $this->createForm(new FosUserType(), $entity, array(
+        $form = $this->createForm(new FosUserType($this->get('security.context')), $entity, array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $form->bind($request);
@@ -210,7 +212,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find FosUser entity.');
         }
 
-        $editForm = $this->createForm(new FosUserType($this->container), $entity, array(
+        $editForm = $this->createForm(new FosUserType($this->get('security.context')), $entity, array(
             'em' => $em,
         ));
 
@@ -279,7 +281,7 @@ class UserController extends Controller
 
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new FosUserType($this->container), $entity, array(
+        $editForm = $this->createForm(new FosUserType($this->get('security.context')), $entity, array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
 

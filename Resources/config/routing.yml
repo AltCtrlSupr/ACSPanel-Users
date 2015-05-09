@@ -30,3 +30,7 @@ ACSACSPanelUsersBundle_users:
    resource: "@ACSACSPanelUsersBundle/Controller/"
    prefix:   /users
    type: annotation
+
+ACSACSPanelBundle_groups:
+    resource: "@ACSACSPanelUsersBundle/Resources/config/routing/fosgroup.yml"
+    prefix:   /groups

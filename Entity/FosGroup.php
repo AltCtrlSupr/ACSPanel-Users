@@ -4,11 +4,12 @@ namespace ACS\ACSPanelUsersBundle\Entity;
 use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityRepository as EM;
+use ACS\ACSPanelBundle\Model\Entity\AclEntity;
 
 /**
  * ACS\ACSPanelUsersBundle\Entity\FosGroup
  */
-class FosGroup extends BaseGroup
+class FosGroup extends BaseGroup implements AclEntity
 {
     /**
      * @var integer $id
@@ -78,5 +79,10 @@ class FosGroup extends BaseGroup
     public function getUsers()
     {
         return $this->users;
+    }
+
+    public function getOwners()
+    {
+        return 'admins';
     }
 }
