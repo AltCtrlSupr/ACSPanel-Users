@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use ACS\ACSPanelUsersBundle\Form\FosUserType;
 use ACS\ACSPanelUsersBundle\Entity\FosUser;
+use ACS\ACSPanelUsersBundle\Event\UserEvents;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -134,14 +135,14 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $dispatcher = new EventDispatcher();
+            // $dispatcher = new EventDispatcher();
 
-            $dispatcher->dispatch(UserEvents::USER_REGISTER, new FilterUserEvent($entity));
+            // $dispatcher->dispatch(UserEvents::USER_REGISTER, new FilterUserEvent($entity));
 
             return $this->redirect($this->generateUrl('users_edit', array('id' => $entity->getId())));
         }
 
-        return $this->render('ACSACSPanelBundle:FosUser:new.html.twig', array(
+        return $this->render('ACSACSPanelUsersBundle:User:new.html.twig', array(
             'search_action' => 'user_search',
             'entity' => $entity,
             'form'   => $form->createView(),

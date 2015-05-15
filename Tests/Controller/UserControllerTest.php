@@ -35,6 +35,23 @@ class UserControllerTest extends CommonTestCase
 
         $crawler = $client->request('GET', '/users/new');
         $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
+
+        // we should be rendered new user form
+        $crawler = $client->request('GET', '/users/create');
+        $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
+
+		// Form should accept empty protected dir
+		$form = $crawler->selectButton('Create')->form(array(
+			'acs_acspanelbundle_fosusertype[username]' => 'test',
+			'acs_acspanelbundle_fosusertype[password]' => '1234',
+			'acs_acspanelbundle_fosusertype[email]' => 'test@test.cat',
+			'acs_acspanelbundle_fosusertype[enabled]' => true,
+			'acs_acspanelbundle_fosusertype[parent_user]' => 1,
+		));
+
+		$crawler = $client->submit($form);
+		$this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
 	}
 
     public function testUserEdit()

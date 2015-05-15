@@ -751,6 +751,9 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      */
     public function canUseResource($resource, $em)
     {
+        if ($this->hasRole('ROLE_SUPER_ADMIN'))
+            return true;
+
         if ($this->getPlanMax($resource) == -1)
             return false;
 
@@ -789,7 +792,6 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
     {
         return true;
     }
-
 
     public function getOwners()
     {
