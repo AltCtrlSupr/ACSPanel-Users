@@ -109,7 +109,6 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             // Persisting plans
-            // @todo: Do this with events
             $postData = $request->request->get('acs_acspanelbundle_fosusertype');
             if(isset($postData['puser'])){
                 $plans = $postData['puser'];
@@ -123,7 +122,6 @@ class UserController extends Controller
                         $em->persist($new_plan);
                     }
                 }
-
             }
 
             // Password encode setting
