@@ -736,7 +736,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
         if($security->isGranted('ROLE_RESELLER')){
             $users = $user->getIdChildIds();
             foreach($users as $childuser){
-                if($childuser == $user_to_check->getId())
+                if(isset($user_to_check) && $childuser == $user_to_check->getId())
                     return true;
             }
         }
