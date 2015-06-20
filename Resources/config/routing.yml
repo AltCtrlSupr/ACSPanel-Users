@@ -21,13 +21,6 @@ liip_theme:
     resource: "@LiipThemeBundle/Resources/config/routing.xml"
     prefix: /theme
 
-# Compatibility with avanzu
-login_check:
-    path: /login_check/
-avanzu_admin_profile:
-    path: /profile/
-avanzu_admin_logout:
-    path: /logout
 
 ACSACSPanelUsersBundle_users:
    resource: "@ACSACSPanelUsersBundle/Controller/"
@@ -37,3 +30,13 @@ ACSACSPanelUsersBundle_users:
 ACSACSPanelBundle_groups:
     resource: "@ACSACSPanelUsersBundle/Resources/config/routing/fosgroup.yml"
     prefix:   /groups
+
+# Compatibility with avanzu {{
+login_check:
+    path: /login_check/
+avanzu_admin_profile:
+    path: /profile/
+avanzu_admin_logout:
+    path: /logout
+# }}
+

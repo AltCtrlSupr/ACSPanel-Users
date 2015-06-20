@@ -1,0 +1,15 @@
+ACS\ACSPanelUsersBundle\Entity\FosUser:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        firstname:
+            expose: true
+        lastname:
+            expose: true
+        uid:
+            expose: true
+        gid:
+            expose: true
+        password_changed_at:
+            expose: true
