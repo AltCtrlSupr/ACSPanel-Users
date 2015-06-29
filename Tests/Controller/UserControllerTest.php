@@ -36,10 +36,6 @@ class UserControllerTest extends CommonTestCase
         $crawler = $client->request('GET', '/users/new');
         $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
 
-        // we should be rendered new user form
-        $crawler = $client->request('GET', '/users/create');
-        $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
-
 		// Form should accept empty protected dir
 		$form = $crawler->selectButton('Create')->form(array(
 			'acs_acspanelbundle_fosusertype[username]' => 'test',
