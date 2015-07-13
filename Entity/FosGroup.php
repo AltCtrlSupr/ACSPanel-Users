@@ -51,10 +51,10 @@ class FosGroup extends BaseGroup implements AclEntity
     /**
      * Add users
      *
-     * @param \ACS\ACSPanelUsersBundle\Entity\FosUser $users
+     * @param \ACS\ACSPanelUsersBundle\Entity\User $users
      * @return FosGroup
      */
-    public function addUser(\ACS\ACSPanelUsersBundle\Entity\FosUser $users)
+    public function addUser(\ACS\ACSPanelUsersBundle\Entity\User $users)
     {
         $this->users[] = $users;
 
@@ -64,9 +64,9 @@ class FosGroup extends BaseGroup implements AclEntity
     /**
      * Remove users
      *
-     * @param \ACS\ACSPanelUsersBundle\Entity\FosUser $users
+     * @param \ACS\ACSPanelUsersBundle\Entity\User $users
      */
-    public function removeUser(\ACS\ACSPanelUsersBundle\Entity\FosUser $users)
+    public function removeUser(\ACS\ACSPanelUsersBundle\Entity\User $users)
     {
         $this->users->removeElement($users);
     }

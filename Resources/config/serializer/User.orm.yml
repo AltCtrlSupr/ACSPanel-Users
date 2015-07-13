@@ -1,4 +1,4 @@
-ACS\ACSPanelUsersBundle\Entity\FosUser:
+ACS\ACSPanelUsersBundle\Entity\User:
     exclusion_policy: ALL
     properties:
         id:

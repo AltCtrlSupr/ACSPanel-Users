@@ -1,4 +1,4 @@
-ACS\ACSPanelUsersBundle\Entity\FosUser:
+ACS\ACSPanelUsersBundle\Entity\User:
     type: entity
     repositoryClass: ACS\ACSPanelUsersBundle\Model\UserRepository
     table: fos_user
@@ -61,7 +61,7 @@ ACS\ACSPanelUsersBundle\Entity\FosUser:
 
     manyToOne:
         parent_user:
-            targetEntity: FosUser
+            targetEntity: User
             inversedBy: child_users
             joinColumn:
                 name: parent_user_id
@@ -69,7 +69,7 @@ ACS\ACSPanelUsersBundle\Entity\FosUser:
 
     oneToMany:
         child_users:
-            targetEntity: FosUser
+            targetEntity: User
             mappedBy: parent_user
 
         puser:

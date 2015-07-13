@@ -4,7 +4,7 @@ namespace ACS\ACSPanelUsersBundle\Tests\Entity;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-use ACS\ACSPanelUsersBundle\Entity\FosUser;
+use ACS\ACSPanelUsersBundle\Entity\User;
 
 class UserRepositoryFunctionalTest extends KernelTestCase
 {
@@ -28,7 +28,7 @@ class UserRepositoryFunctionalTest extends KernelTestCase
 
     public function testGetAdminUsers()
     {
-        $admin = new FosUser();
+        $admin = new User();
         $admin->addRole('ROLE_ADMIN');
         $admin->setUsername('test_username');
         $admin->setEmail('test_username@test');
@@ -36,12 +36,12 @@ class UserRepositoryFunctionalTest extends KernelTestCase
         $this->em->persist($admin);
         $this->em->flush();
 
-        $admins = $this->em->getRepository('ACSACSPanelUsersBundle:FosUser')
+        $admins = $this->em->getRepository('ACSACSPanelUsersBundle:User')
             ->findByUsername('test_username')
         ;
         $this->assertCount(1, $admins);
 
-        $admins = $this->em->getRepository('ACSACSPanelUsersBundle:FosUser')
+        $admins = $this->em->getRepository('ACSACSPanelUsersBundle:User')
             ->getAdminUsers()
         ;
 

@@ -5,7 +5,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use ACS\ACSPanelUsersBundle\Entity\FosUser;
+use ACS\ACSPanelUsersBundle\Entity\User;
 
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
@@ -42,8 +42,8 @@ class EntitySubscriber implements EventSubscriber
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
-        if ($entity instanceof FosUser){
-            $this->setFosUserUserValue($entity);
+        if ($entity instanceof User){
+            $this->setUserUserValue($entity);
             $this->setGidAndUidValues($entity);
         }
     }
@@ -59,7 +59,7 @@ class EntitySubscriber implements EventSubscriber
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
-        if ($entity instanceof FosUser){
+        if ($entity instanceof User){
             $this->incrementUidSetting($entity);
             $this->incrementGidSetting($entity);
         }
@@ -90,7 +90,7 @@ class EntitySubscriber implements EventSubscriber
     }
 
 
-    public function setFosUserUserValue($entity)
+    public function setUserUserValue($entity)
     {
         if($entity->getParentUser())
             return;
@@ -105,7 +105,7 @@ class EntitySubscriber implements EventSubscriber
                 if($user != 'anon.'){
                     return $entity->setParentUser($user);
                 }else{
-                    // $system_user = new FosUser();
+                    // $system_user = new User();
                     // $system_user->setId(1);
                     // return $this->setParentUser($system_user);
                 }

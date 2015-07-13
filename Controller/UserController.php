@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use ACS\ACSPanelBundle\Entity\UserPlan;
 use ACS\ACSPanelUsersBundle\Form\UserType;
-use ACS\ACSPanelUsersBundle\Entity\FosUser;
+use ACS\ACSPanelUsersBundle\Entity\User;
 use ACS\ACSPanelUsersBundle\Event\UserEvents;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -25,12 +25,12 @@ class UserController extends Controller
     {
 	     $em = $this->getDoctrine()->getManager();
 	     if (true === $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
-		     $entities = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->findAll();
+		     $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findAll();
 	     }elseif(true === $this->get('security.context')->isGranted('ROLE_ADMIN')){
-		     $entities = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->findBy(array('parent_user' => $this->get('security.context')->getToken()->getUser()->getIdChildIds()));
+		     $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findBy(array('parent_user' => $this->get('security.context')->getToken()->getUser()->getIdChildIds()));
 	     }else{
 		     $user = $this->get('security.context')->getToken()->getUser();
-		     $entities = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->findBy(array('parent_user' => $user->getId()));
+		     $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findBy(array('parent_user' => $user->getId()));
 	     }
 
 	     return array(
@@ -47,7 +47,7 @@ class UserController extends Controller
     public function searchAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $rep = $em->getRepository('ACSACSPanelUsersBundle:FosUser');
+        $rep = $em->getRepository('ACSACSPanelUsersBundle:User');
 
         $term = $request->request->get('term');
 
@@ -74,13 +74,13 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a form to create a new FosUser entity.
+     * Displays a form to create a new User entity.
      *
      * @Route("/new/", name="users_new")
      */
     public function newAction()
     {
-        $entity = new FosUser();
+        $entity = new User();
 
         $form = $this->createForm(new UserType($this->get('security.context')), $entity, array(
             'em' => $this->getDoctrine()->getEntityManager(),
@@ -100,7 +100,7 @@ class UserController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new FosUser();
+        $entity  = new User();
         $form = $this->createForm(new UserType($this->get('security.context')), $entity, array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
@@ -149,7 +149,7 @@ class UserController extends Controller
     }
 
     /**
-     * Displays show FosUser entity.
+     * Displays show User entity.
      *
      * @Route("/show/{id}", name="users_show")
      */
@@ -158,7 +158,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
+        $entity = $em->getRepository('ACSACSPanelUsersBundle:User')->find($id);
 
         if (!$entity->userCanSee($this->get('security.context'))) {
             throw new \Exception('You cannot edit this entity!');
@@ -182,7 +182,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $curr_user = $this->get('security.context')->getToken()->getUser();
-        $user = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
+        $user = $em->getRepository('ACSACSPanelUsersBundle:User')->find($id);
 
         if (true === $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || $curr_user == $user->getParentUser()) {
 
@@ -206,10 +206,10 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
+        $entity = $em->getRepository('ACSACSPanelUsersBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find FosUser entity.');
+            throw $this->createNotFoundException('Unable to find User entity.');
         }
 
         $editForm = $this->createForm(new UserType($this->get('security.context')), $entity, array(
@@ -227,7 +227,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes a FosUser entity.
+     * Deletes a User entity.
      *
      * @Route("/delete/{id}", name="users_delete")
      */
@@ -238,10 +238,10 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
+            $entity = $em->getRepository('ACSACSPanelUsersBundle:User')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find FosUser entity.');
+                throw $this->createNotFoundException('Unable to find User entity.');
             }
 
             $userplans = $em->getRepository('ACSACSPanelBundle:UserPlan')->findByPuser($entity);
@@ -257,7 +257,7 @@ class UserController extends Controller
     }
 
     /**
-     * Edits an existing FosUser entity.
+     * Edits an existing User entity.
      *
      * @Route("/update/{id}", name="users_update")
      */
@@ -265,10 +265,10 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ACSACSPanelUsersBundle:FosUser')->find($id);
+        $entity = $em->getRepository('ACSACSPanelUsersBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find FosUser entity.');
+            throw $this->createNotFoundException('Unable to find User entity.');
         }
 
         $originalPlans = array();

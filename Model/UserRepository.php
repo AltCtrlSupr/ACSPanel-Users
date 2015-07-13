@@ -13,7 +13,7 @@ class UserRepository extends EntityRepository
     {
         return $this->createQueryBuilder('u')
             ->select('u')
-            ->from('ACS\ACSPanelUsersBundle\Entity\FosUser','usr')
+            ->from('ACS\ACSPanelUsersBundle\Entity\User','usr')
             ->leftJoin('u.groups','g')
             ->where('g.roles LIKE :roles OR u.roles LIKE :roles')
             ->setParameter('roles', '%ROLE_SUPER_ADMIN%')
@@ -24,7 +24,7 @@ class UserRepository extends EntityRepository
     {
         return $this->createQueryBuilder('u')
             ->select('u')
-            ->from('ACS\ACSPanelUsersBundle\Entity\FosUser','usr')
+            ->from('ACS\ACSPanelUsersBundle\Entity\User','usr')
             ->leftJoin('u.groups','g')
             ->where('g.roles LIKE :roles OR u.roles LIKE :roles')
             ->setParameter('roles', '%ROLE_ADMIN%')

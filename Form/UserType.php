@@ -40,14 +40,14 @@ class UserType extends AbstractType
         }
 
 
-        $subscriber = new UserFormFieldSuscriber ($builder->getFormFactory());
+        $subscriber = new UserFormFieldSuscriber($builder->getFormFactory());
         $builder->addEventSubscriber($subscriber);
 
         $builder
             ->add('groups', null, array('label' => 'user.form.groups'))
             ->add('puser', 'bootstrap_collection', array(
                 'type' => new UserPlanType($user, $options['em']),
-                // 'type' => 'bootstrap_collection',
+                'mapped' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
@@ -61,7 +61,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ACS\ACSPanelUsersBundle\Entity\FosUser'
+            'data_class' => 'ACS\ACSPanelUsersBundle\Entity\User'
         ));
 
         $resolver->setRequired(array(

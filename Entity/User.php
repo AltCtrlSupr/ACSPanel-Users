@@ -13,7 +13,7 @@ use Avanzu\AdminThemeBundle\Model\UserInterface as ThemeUser;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class FosUser extends BaseUser implements ThemeUser, AclEntity
+class User extends BaseUser implements ThemeUser, AclEntity
 {
     /**
      * @ORM\Id
@@ -38,7 +38,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
     private $plans;
 
     /**
-     * @var \ACS\ACSPanelUsersBundle\Entity\FosUser
+     * @var \ACS\ACSPanelUsersBundle\Entity\User
      */
     private $parent_user;
 
@@ -145,7 +145,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add groups
      *
      * @param \ACS\ACSPanelBundle\Entity\FosGroup $groups
-     * @return FosUser
+     * @return User
      */
     public function addGroup(GroupInterface $group)
     {
@@ -166,7 +166,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add plans
      *
      * @param \ACS\ACSPanelBundle\Entity\Plan $plans
-     * @return FosUser
+     * @return User
      */
     public function addPlan(\ACS\ACSPanelBundle\Entity\Plan $plans)
     {
@@ -261,10 +261,10 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
     /**
      * Set parent_user
      *
-     * @param \ACS\ACSPanelBundle\Entity\FosUser $parentUser
-     * @return FosUser
+     * @param \ACS\ACSPanelBundle\Entity\User $parentUser
+     * @return User
      */
-    public function setParentUser(\ACS\ACSPanelUsersBundle\Entity\FosUser $parentUser = null)
+    public function setParentUser(\ACS\ACSPanelUsersBundle\Entity\User $parentUser = null)
     {
         $this->parent_user = $parentUser;
 
@@ -274,7 +274,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
     /**
      * Get parent_user
      *
-     * @return \ACS\ACSPanelBundle\Entity\FosUser
+     * @return \ACS\ACSPanelBundle\Entity\User
      */
     public function getParentUser()
     {
@@ -284,10 +284,10 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
     /**
      * Add child_users
      *
-     * @param \ACS\ACSPanelBundle\Entity\FosUser $childUsers
-     * @return FosUser
+     * @param \ACS\ACSPanelBundle\Entity\User $childUsers
+     * @return User
      */
-    public function addChildUser(\ACS\ACSPanelUsersBundle\Entity\FosUser $childUsers)
+    public function addChildUser(\ACS\ACSPanelUsersBundle\Entity\User $childUsers)
     {
         $this->child_users[] = $childUsers;
 
@@ -297,9 +297,9 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
     /**
      * Remove child_users
      *
-     * @param \ACS\ACSPanelBundle\Entity\FosUser $childUsers
+     * @param \ACS\ACSPanelBundle\Entity\User $childUsers
      */
-    public function removeChildUser(\ACS\ACSPanelUsersBundle\Entity\FosUser $childUsers)
+    public function removeChildUser(\ACS\ACSPanelUsersBundle\Entity\User $childUsers)
     {
         $this->child_users->removeElement($childUsers);
     }
@@ -328,7 +328,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add puser
      *
      * @param \ACS\ACSPanelBundle\Entity\UserPlan $puser
-     * @return FosUser
+     * @return User
      */
     public function addPuser(\ACS\ACSPanelBundle\Entity\UserPlan $puser)
     {
@@ -361,7 +361,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Set uid
      *
      * @param integer $uid
-     * @return FosUser
+     * @return User
      */
     public function setUid($uid)
     {
@@ -384,7 +384,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Set gid
      *
      * @param integer $gid
-     * @return FosUser
+     * @return User
      */
     public function setGid($gid)
     {
@@ -407,7 +407,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Set firstname
      *
      * @param string $firstname
-     * @return FosUser
+     * @return User
      */
     public function setFirstname($firstname)
     {
@@ -430,7 +430,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Set lastname
      *
      * @param string $lastname
-     * @return FosUser
+     * @return User
      */
     public function setLastname($lastname)
     {
@@ -453,7 +453,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add services
      *
      * @param \ACS\ACSPanelBundle\Entity\Service $services
-     * @return FosUser
+     * @return User
      */
     public function addService(\ACS\ACSPanelBundle\Entity\Service $services)
     {
@@ -486,7 +486,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add httpdhosts
      *
      * @param \ACS\ACSPanelBundle\Entity\HttpdHost $httpdhosts
-     * @return FosUser
+     * @return User
      */
     public function addHttpdhost(\ACS\ACSPanelBundle\Entity\HttpdHost $httpdhosts)
     {
@@ -520,7 +520,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add maildomains
      *
      * @param \ACS\ACSPanelBundle\Entity\MailDomain $maildomains
-     * @return FosUser
+     * @return User
      */
     public function addMaildomain(\ACS\ACSPanelBundle\Entity\MailDomain $maildomains)
     {
@@ -553,7 +553,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add databases
      *
      * @param \ACS\ACSPanelBundle\Entity\DB $databases
-     * @return FosUser
+     * @return User
      */
     public function addDatabase(\ACS\ACSPanelBundle\Entity\DB $databases)
     {
@@ -586,7 +586,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add settings
      *
      * @param \ACS\ACSPanelBundle\Entity\PanelSetting $settings
-     * @return FosUser
+     * @return User
      */
     public function addSetting(\ACS\ACSPanelBundle\Entity\PanelSetting $settings)
     {
@@ -658,7 +658,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Add domains
      *
      * @param \ACS\ACSPanelBundle\Entity\Domain $domains
-     * @return FosUser
+     * @return User
      */
     public function addDomain(\ACS\ACSPanelBundle\Entity\Domain $domains)
     {
@@ -698,7 +698,7 @@ class FosUser extends BaseUser implements ThemeUser, AclEntity
      * Set password_changed_at
      *
      * @param \DateTime $passwordChangedAt
-     * @return FosUser
+     * @return User
      */
     public function setPasswordChangedAt($passwordChangedAt)
     {

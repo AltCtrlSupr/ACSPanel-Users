@@ -2,13 +2,13 @@
 
 namespace ACS\ACSPanelUsersBundle\Tests\Model;
 
-use ACS\ACSPanelUsersBundle\Entity\FosUser;
+use ACS\ACSPanelUsersBundle\Entity\User;
 
-class FosUserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetHomeDir()
     {
-        $test_user = new FosUser();
+        $test_user = new User();
         $test_user->setUsername('administrator');
 
         $home_dir = $test_user->getHomeDir();

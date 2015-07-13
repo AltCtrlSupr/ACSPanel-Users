@@ -3,7 +3,7 @@
 namespace ACS\ACSPanelUsersBundle\Event;
 
 use Avanzu\AdminThemeBundle\Event\ShowUserEvent;
-use ACS\ACSPanelUsersBundle\Entity\FosUser;
+use ACS\ACSPanelUsersBundle\Entity\User;
 
 class AcsShowUserEvent
 {

@@ -11,7 +11,7 @@ ACS\ACSPanelUsersBundle\Entity\FosGroup:
                 strategy: IDENTITY
     manyToMany:
         users:
-            targetEntity: \ACS\ACSPanelUsersBundle\Entity\FosUser
+            targetEntity: \ACS\ACSPanelUsersBundle\Entity\User
             mappedBy: groups
 
     lifecycleCallbacks: {}
