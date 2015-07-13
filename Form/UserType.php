@@ -6,10 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+
 use ACS\ACSPanelBundle\Form\UserPlanType;
 use ACS\ACSPanelBundle\Form\EventListener\UserFormFieldSuscriber;
 
-class FosUserType extends AbstractType
+class UserType extends AbstractType
 {
     private $_security;
 
@@ -44,11 +45,13 @@ class FosUserType extends AbstractType
 
         $builder
             ->add('groups', null, array('label' => 'user.form.groups'))
-            ->add('puser', 'collection', array(
+            ->add('puser', 'bootstrap_collection', array(
                 'type' => new UserPlanType($user, $options['em']),
+                // 'type' => 'bootstrap_collection',
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
+                'prototype_name' => '__name__',
                 'by_reference' => false,
             ))
 

@@ -6,7 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use ACS\ACSPanelUsersBundle\Form\FosUserType;
+use ACS\ACSPanelBundle\Entity\UserPlan;
+use ACS\ACSPanelUsersBundle\Form\UserType;
 use ACS\ACSPanelUsersBundle\Entity\FosUser;
 use ACS\ACSPanelUsersBundle\Event\UserEvents;
 
@@ -81,7 +82,7 @@ class UserController extends Controller
     {
         $entity = new FosUser();
 
-        $form = $this->createForm(new FosUserType($this->get('security.context')), $entity, array(
+        $form = $this->createForm(new UserType($this->get('security.context')), $entity, array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
 
@@ -100,7 +101,7 @@ class UserController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new FosUser();
-        $form = $this->createForm(new FosUserType($this->get('security.context')), $entity, array(
+        $form = $this->createForm(new UserType($this->get('security.context')), $entity, array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $form->bind($request);
@@ -211,7 +212,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find FosUser entity.');
         }
 
-        $editForm = $this->createForm(new FosUserType($this->get('security.context')), $entity, array(
+        $editForm = $this->createForm(new UserType($this->get('security.context')), $entity, array(
             'em' => $em,
         ));
 
@@ -270,7 +271,6 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find FosUser entity.');
         }
 
-
         $originalPlans = array();
 
         // Create an array of the current Tag objects in the database
@@ -278,9 +278,8 @@ class UserController extends Controller
             $originalPlans[] = $plan;
         }
 
-
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new FosUserType($this->get('security.context')), $entity, array(
+        $editForm = $this->createForm(new UserType($this->get('security.context')), $entity, array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
 
