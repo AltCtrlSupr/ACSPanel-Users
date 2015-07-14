@@ -2,7 +2,10 @@
 
 namespace ACS\ACSPanelUsersBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use ACS\ACSPanelBundle\Controller\Base\CommonController;
+
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -15,29 +18,46 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class UserController extends Controller
+/**
+ * Domain controller.
+ *
+ * @Rest\RouteResource("User")
+ */
+class UserController extends CommonController
 {
+    public function __construct()
+    {
+        $this->setEntityRepository('ACSACSPanelUserBundle:User');
+        $this->setEntityRouteBase('user');
+    }
+
     /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Return all the users visible to current user",
+     * )
+     *
      * @Route("/", name="users")
-     * @Template()
+     * @Rest\View(templateVar="entities")
      */
     public function indexAction()
     {
-	     $em = $this->getDoctrine()->getManager();
-	     if (true === $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
-		     $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findAll();
-	     }elseif(true === $this->get('security.context')->isGranted('ROLE_ADMIN')){
-		     $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findBy(array('parent_user' => $this->get('security.context')->getToken()->getUser()->getIdChildIds()));
-	     }else{
-		     $user = $this->get('security.context')->getToken()->getUser();
-		     $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findBy(array('parent_user' => $user->getId()));
-	     }
+        $em = $this->getDoctrine()->getManager();
+        if (true === $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findAll();
+        }elseif(true === $this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findBy(array('parent_user' => $this->get('security.context')->getToken()->getUser()->getIdChildIds()));
+        }else{
+            $user = $this->get('security.context')->getToken()->getUser();
+            $entities = $em->getRepository('ACSACSPanelUsersBundle:User')->findBy(array('parent_user' => $user->getId()));
+        }
 
-	     return array(
-		     'search_action' => 'user_search',
-		     'entities' => $entities,
-	     );
+        $view = $this->view($entities, 200)
+            ->setTemplateData(array('search_action' => 'user_search'))
+        ;
 
+        return $view;
     }
 
     /**
@@ -318,18 +338,4 @@ class UserController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
-
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
-    }
-
-
-
-
 }
