@@ -1,5 +1,5 @@
 ACS\ACSPanelUsersBundle\Entity\User:
-    exclusion_policy: ALL
+    xml_root_name: user
     properties:
         id:
             expose: true
@@ -11,5 +11,7 @@ ACS\ACSPanelUsersBundle\Entity\User:
             expose: true
         gid:
             expose: true
-        password_changed_at:
-            expose: true
+        child_users:
+            exclude: true
+        password:
+            exclude: true
