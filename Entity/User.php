@@ -98,7 +98,6 @@ class User extends BaseUser implements ThemeUser, AclEntity
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @todo check if is still used
      */
     private $domains;
 
