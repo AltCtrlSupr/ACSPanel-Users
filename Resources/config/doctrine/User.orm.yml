@@ -22,7 +22,6 @@ ACS\ACSPanelUsersBundle\Entity\User:
             length: 255
             fixed: false
             nullable: true
-
         uid:
             type: integer
             unsigned: false
@@ -31,7 +30,6 @@ ACS\ACSPanelUsersBundle\Entity\User:
                 strategy: IDENTITY
             idetityGenerator:
                 initialValue: 3000
-
         gid:
             type: integer
             unsigned: false
@@ -43,6 +41,7 @@ ACS\ACSPanelUsersBundle\Entity\User:
         password_changed_at:
             type: datetime
             nullable: true
+
     manyToMany:
         groups:
             targetEntity: FosGroup
@@ -55,9 +54,6 @@ ACS\ACSPanelUsersBundle\Entity\User:
                 inverseJoinColumns:
                     user_id:
                         referencedColumnName: id
-        # services:
-        #    targetEntity: Service
-        #    inversedBy: users
 
     manyToOne:
         parent_user:
@@ -71,7 +67,6 @@ ACS\ACSPanelUsersBundle\Entity\User:
         child_users:
             targetEntity: User
             mappedBy: parent_user
-
         puser:
             targetEntity: \ACS\ACSPanelBundle\Entity\UserPlan
             mappedBy: puser
