@@ -51,6 +51,7 @@ class User extends BaseUser implements ThemeUser, AclEntity
      * @var \Doctrine\Common\Collections\Collection
      */
     private $puser;
+
     /**
      * @var integer
      */

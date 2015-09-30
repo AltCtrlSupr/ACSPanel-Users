@@ -4,8 +4,16 @@ parameters:
     users_entity_subscriber.class: ACS\ACSPanelUsersBundle\Event\Subscribers\EntitySubscriber
     acl_logic_subscriber.class: ACS\ACSPanelUsersBundle\Event\Subscribers\AclLogicSubscriber
     acspanel.show_user_listener.class: ACS\ACSPanelUsersBundle\Event\AcsShowUserEvent
+    user.tools.class: ACS\ACSPanelUserBundle\Model\UserTools
 
 services:
+    # User checking tools
+    acs.user.tools:
+        class: %user.tools.class%
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
+        tags:
+            - {name: acs.user.tools, alias: acs.user.tools}
+
     # Menu items added with event listener
     users_menu_subscriber:
         class: ACS\ACSPanelUsersBundle\Event\Subscribers\MenuSubscriber

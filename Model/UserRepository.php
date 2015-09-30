@@ -1,6 +1,5 @@
 <?php
 /*
- *
  * @author Genar
  */
 namespace ACS\ACSPanelUsersBundle\Model;
