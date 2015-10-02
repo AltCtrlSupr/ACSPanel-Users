@@ -27,7 +27,7 @@ class UserController extends CommonController
 {
     public function __construct()
     {
-        $this->setEntityRepository('ACSACSPanelUserBundle:User');
+        $this->setEntityRepository('ACSACSPanelUsersBundle:User');
         $this->setEntityRouteBase('user');
     }
 
@@ -85,7 +85,7 @@ class UserController extends CommonController
 
         $entities = $query->execute();
 
-        return $this->render('ACSACSPanelUserBundle:User:index.html.twig', array(
+        return $this->render('ACSACSPanelUsersBundle:User:index.html.twig', array(
             'search_action' => 'user_search',
             'term' => $term,
             'entities' => $entities,

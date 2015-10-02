@@ -77,8 +77,7 @@ class UserTools
         $container = $this->container;
         $setting_manager = $container->get('acs.setting_manager');
         $last_gid = $setting_manager->getSystemSetting('last_used_gid');
+
         return $setting_manager->setInternalSetting('last_used_gid', $last_gid + 1);
-
     }
-
 }
