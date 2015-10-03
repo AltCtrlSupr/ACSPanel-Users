@@ -15,7 +15,7 @@ class UserControllerTest extends CommonApiTestCase
         $crawler = $client->request('GET', '/api/users/index.json');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertJson($client);
+        $this->assertJsonResponse($client);
         $this->assertNotRegExp('/password/', $client->getResponse()->getContent());
     }
 }

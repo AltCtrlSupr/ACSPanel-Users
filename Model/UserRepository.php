@@ -1,12 +1,12 @@
 <?php
-/*
+/**
  * @author Genar
  */
 namespace ACS\ACSPanelUsersBundle\Model;
 
-use Doctrine\ORM\EntityRepository;
+use ACS\ACSPanelUsersBundle\Doctrine\AclEntityRepository;
 
-class UserRepository extends EntityRepository
+class UserRepository extends AclEntityRepository
 {
     public function qbSuperadminUsers()
     {
@@ -44,5 +44,13 @@ class UserRepository extends EntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function getUserViewable($user)
+    {
+        $entities_raw = $this->_em->createQuery('SELECT u FROM ACS\ACSPanelUsersBundle\Entity\User u');
+        $entities = $this->getAclFilter()->apply($entities_raw, ['VIEW'], $user, 'u')->getResult();
+
+        return $entities;
     }
 }
