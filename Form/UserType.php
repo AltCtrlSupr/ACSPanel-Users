@@ -6,9 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-
 use ACS\ACSPanelBundle\Form\UserPlanType;
-use ACS\ACSPanelBundle\Form\UserAllowedServiceType;
 use ACS\ACSPanelBundle\Form\EventListener\UserFormFieldSuscriber;
 
 class UserType extends AbstractType
@@ -46,7 +44,9 @@ class UserType extends AbstractType
 
         if($this->_security->isGranted('ROLE_RESELLER')){
             $builder
-                ->add('groups', null, array('label' => 'user.form.groups'))
+                ->add('groups', null, array(
+                    'label' => 'user.form.groups')
+                )
                 ->add('puser', 'bootstrap_collection', array(
                     'type' => new UserPlanType($user, $options['em']),
                     'mapped' => false,
@@ -58,7 +58,12 @@ class UserType extends AbstractType
                 ))
                 ->add('allowed_services', 'bootstrap_collection', array(
                     'type' => new UserAllowedServiceType($user, $options['em']),
-                    'mapped' => false
+                    'mapped' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'prototype' => true,
+                    'prototype_name' => '__name__',
+                    'by_reference' => false,
                 ))
             ;
         }

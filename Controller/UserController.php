@@ -81,7 +81,8 @@ class UserController extends CommonController
             ->orWhere('u.uid = ?1')
             ->orWhere('u.gid = ?1')
             ->setParameter('1',$term)
-            ->getQuery();
+            ->getQuery()
+        ;
 
         $entities = $query->execute();
 

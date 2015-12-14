@@ -1,6 +1,6 @@
 <?php
 
-namespace ACS\ACSPanelBundle\Form;
+namespace ACS\ACSPanelUsersBundle\Form;
 
 use ACS\ACSPanelBundle\Form\DataTransformer\UserToStringTransformer;
 
@@ -23,17 +23,10 @@ class UserAllowedServiceType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $entity = $this->entity;
-        $id = $entity->getId();
-
-        // this assumes that the entity manager was passed in as an option
-        $entityManager = $this->em;
-        $transformer = new UserToStringTransformer($entityManager);
-
         $builder
             ->add('uservices', 'entity', array(
                 'class' => 'ACS\ACSPanelBundle\Entity\Service',
-                'label' => 'Select a plan:',
+                'label' => 'Select a service:',
                 'mapped' => false
             ))
         ;
