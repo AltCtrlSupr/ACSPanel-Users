@@ -11,11 +11,11 @@ use ACS\ACSPanelBundle\Form\EventListener\UserFormFieldSuscriber;
 
 class UserType extends AbstractType
 {
-    private $_security;
+    private $security;
 
     public function __construct($security)
     {
-        $this->_security = $security;
+        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -29,11 +29,11 @@ class UserType extends AbstractType
             ->add('first_name', null, array('label' => 'user.form.first_name'))
             ->add('last_name', null, array('label' => 'user.form.last_name'));
 
-        if($this->_security->isGranted('ROLE_SUPER_ADMIN')){
+        if($this->security->isGranted('ROLE_SUPER_ADMIN')){
            $builder->add('parent_user', null, array('label' => 'user.form.parent_user'));
         }
 
-        if($this->_security->isGranted('ROLE_ADMIN')){
+        if($this->security->isGranted('ROLE_ADMIN')){
            $builder->add('uid', null, array('label' => 'user.form.uid'));
            $builder->add('gid', null, array('label' => 'user.form.gid'));
         }
@@ -42,7 +42,7 @@ class UserType extends AbstractType
         $subscriber = new UserFormFieldSuscriber($builder->getFormFactory());
         $builder->addEventSubscriber($subscriber);
 
-        if($this->_security->isGranted('ROLE_RESELLER')){
+        if($this->security->isGranted('ROLE_RESELLER')){
             $builder
                 ->add('groups', null, array(
                     'label' => 'user.form.groups')
