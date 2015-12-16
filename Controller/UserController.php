@@ -155,9 +155,7 @@ class UserController extends CommonController
             $em->persist($entity);
             $em->flush();
 
-            // $dispatcher = new EventDispatcher();
-
-            // $dispatcher->dispatch(UserEvents::USER_REGISTER, new FilterUserEvent($entity));
+            $this->handleServiceAssignment($form, $entity);
 
             return $this->redirect($this->generateUrl('users_edit', array('id' => $entity->getId())));
         }
@@ -328,6 +326,7 @@ class UserController extends CommonController
             $em->persist($entity);
             $em->flush();
 
+            $this->handleServiceAssignment($editForm, $entity);
 
             return $this->redirect($this->generateUrl('users_edit', array('id' => $id)));
         }
@@ -338,5 +337,15 @@ class UserController extends CommonController
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    private function handleServiceAssignment($form, $entity)
+    {
+        $allowed_services = $form->get('allowed_services')->getData();
+
+        foreach ($allowed_services as $service) {
+            $service = $service['uservices'];
+            $this->get('service_manager')->attachToUser($service, $entity);
+        }
     }
 }

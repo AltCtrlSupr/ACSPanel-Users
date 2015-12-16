@@ -26,8 +26,7 @@ class UserAllowedServiceType extends AbstractType
         $builder
             ->add('uservices', 'entity', array(
                 'class' => 'ACS\ACSPanelBundle\Entity\Service',
-                'label' => 'Select a service:',
-                'mapped' => false
+                'label' => 'Select a service:'
             ))
         ;
     }
