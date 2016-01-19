@@ -33,11 +33,6 @@ class User extends BaseUser implements ThemeUser, AclEntity
     private $child_users;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $plans;
-
-    /**
      * @var \ACS\ACSPanelUsersBundle\Entity\User
      */
     private $parent_user;
@@ -312,16 +307,6 @@ class User extends BaseUser implements ThemeUser, AclEntity
     public function getChildUsers()
     {
         return $this->child_users;
-    }
-
-    /**
-     * Get plan
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPlan()
-    {
-        return $this->plan;
     }
 
     /**
