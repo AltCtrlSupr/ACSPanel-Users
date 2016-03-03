@@ -104,7 +104,7 @@ class UserController extends CommonController
         $entity = new User();
 
         $form = $this->createForm(new UserType($this->get('security.context')), $entity, array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
 
         return $this->render('ACSACSPanelUsersBundle:User:new.html.twig', array(
@@ -123,7 +123,7 @@ class UserController extends CommonController
     {
         $entity  = new User();
         $form = $this->createForm(new UserType($this->get('security.context')), $entity, array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
         $form->bind($request);
 
@@ -299,7 +299,7 @@ class UserController extends CommonController
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new UserType($this->get('security.context')), $entity, array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
 
         $editForm->bind($request);
