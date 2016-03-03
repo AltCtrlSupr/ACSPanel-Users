@@ -102,6 +102,11 @@ class User extends BaseUser implements ThemeUser, AclEntity
      */
     private $password_changed_at;
 
+     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $plans;
+
     /**
      * Get id
      *
@@ -155,6 +160,17 @@ class User extends BaseUser implements ThemeUser, AclEntity
     public function removeGroup(GroupInterface $group)
     {
         parent::removeGroup($group);
+    }
+
+
+     /**
+     * Get plan
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlan()
+    {
+        return $this->plan;
     }
 
     /**
