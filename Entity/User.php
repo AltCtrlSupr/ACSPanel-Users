@@ -214,8 +214,10 @@ class User extends BaseUser implements ThemeUser, AclEntity
             $maxvalue += $plan->$methodname();
         }
 
-        if(!$maxvalue)
+        if (!$maxvalue) {
             return -1;
+        }
+
         return $maxvalue;
     }
 
